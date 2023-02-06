@@ -7,14 +7,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import expressLoader from './configs/expressLoader';
-import mongodbLoader from './configs/mongodbLoader';
+import mongoose from "mongoose";
+const url = process.env.MONGODB_URI;
+mongoose.set('strictQuery', false);
 export default () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield mongodbLoader();
-        expressLoader();
+        yield mongoose.connect(url);
+        console.log('⚡️[DBS]: Mongdb connected...');
     }
-    catch (err) {
-        console.error(err);
+    catch (error) {
+        console.log(error);
     }
 });
